@@ -18,4 +18,10 @@ services:
       - ~/.gitconfig:/root/.gitconfig
     environment:
       - TZ=
-    entrypoint: ["zsh", "-c", "while sleep 1000; do :; done"]
+    cap_add:
+      # For debugging with dlv
+      - SYS_PTRACE
+    security_opt:
+      # For debugging with dlv
+      - seccomp:unconfined
+    entrypoint: [ "zsh", "-c", "while sleep 1000; do :; done" ]
